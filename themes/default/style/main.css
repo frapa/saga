@@ -1,0 +1,63 @@
+body {
+	background: #f9f9f9;
+	font-family: helvetica, arial, freesans, clean, sans-serif;
+	font-size: 15px;
+	margin: 50px 0;
+}
+
+div.main {
+	width: 850px;
+	padding: 10px 30px;
+	background: #fff;
+	border: 1px solid #bbb;
+	margin: auto;
+	box-shadow: 0 0 0 3px #eee;
+	border-radius: 2px;
+}
+
+a:link, a:visited {
+	color: #4183e4;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid #bbb;
+	padding: 2px 5px;
+}
+
+th {
+	background: #eee;
+}
+
+code {
+	font-size: 14px;
+	background: #f9f9f9;
+	border: 1px solid #bbb;
+	border-radius: 3px;
+	padding: 0 5px;
+}
+
+pre > code {
+	display: block;
+	background: #f9f9f9;
+	border: 1px solid #bbb;
+	border-radius: 3px;
+	padding: 5px 10px;
+}
+
+dt {
+	font-weight: bold;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid #bbb;
+}

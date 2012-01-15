@@ -1,15 +1,22 @@
 # python library modules
 import os
 import argparse
+import pickle
 # user defined modules
 import tree
 
 if __name__ == "__main__":
 	# get command line arguments with argparse
-	parser = argparse.ArgumentParser("")
+	parser = argparse.ArgumentParser(description="Marksite utility to build and upload a website written in markdown.")
 	
 	# path which contains the website
 	parser.add_argument("path")
+	# command line actions
+	parser.add_argument("-i", "--init", action="store_true", help="Init a site project")
+	parser.add_argument("-u", "--update", action="store_true", help="Check for changes")
+	parser.add_argument("-r", "--reset", action="store_true", help="Resets a project removing all metadata")
+	parser.add_argument("-b", "--build", action="store_true", help="Builds markdown files to html, applying the theme")
+	parser.add_argument("-s", "--sync", action="store_true", help="Syncs the site to a remote FTP server")
 	
 	args = parser.parse_args()
 	
@@ -19,5 +26,11 @@ if __name__ == "__main__":
 	src_path = os.path.join(base_path, "source")
 	build_path = os.path.join(base_path, "build")
 	
-	# build the file tree
-	site_tree = tree.tree(src_path)
+	if args.init:
+		# build the file tree
+		site_tree = tree.tree(src_path)
+	
+	if args.init:
+		# save build file tree
+		with open(os.path.join(base_path, "tree.obj"), "wb") as outfile:
+			pickle.dump(site_tree, outfile)

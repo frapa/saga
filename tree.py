@@ -98,7 +98,6 @@ def tree(path):
 		rel_path = root.replace(t.path, "")
 		# current directory node object
 		cd = t.get_path(rel_path.split(os.sep))
-		print(cd)
 		
 		for d in dirs:
 			rpath = os.path.join(rel_path, d) # relative path of folder

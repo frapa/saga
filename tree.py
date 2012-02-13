@@ -4,7 +4,6 @@ import hashlib
 # file and directory status costants
 NEW = 0
 CHANGED = 1
-BUILT = 2
 UP_TO_DATE = 3
 DELETED = 4
 
@@ -29,6 +28,7 @@ class Node:
 	def __init__(self, path, parent):
 		self.path = path
 		self.name = os.path.basename(path)
+		self.ext = os.path.splitext(path)[1]
 		self.parent = parent
 	
 	def get_parent(self):
@@ -118,7 +118,16 @@ class Folder(Node):
 				s += name
 		
 		return s
-
+	
+	def iter(self):
+		for name, child in self.children.items():
+			if isinstance(child, Folder):
+				yield child
+				
+				for node in child.iter():
+					yield node
+			else:
+				yield child
 
 # functions which builds and return a tree object
 # made up of nodes
@@ -169,8 +178,15 @@ def update(t):
 				rpath = os.path.join(rel_path, f) # relative path of file
 				cd.add_child(f, File(rpath, cd))
 		
-		for child in cd.children:
-			if child not in dirs + files:
-				child.status = DELETED
+		to_be_removed = []
+		for name, child in cd.children.items():
+			if name not in dirs + files:
+				if child.status == UP_TO_DATE:
+					child.status = DELETED
+				else:
+					to_be_removed.append(name)
+		
+		for child in to_be_removed:
+			del cd.children[child]
 	
 	return t
